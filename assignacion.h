@@ -1,7 +1,6 @@
 #ifndef ASSIGNACION_H
 #define ASSIGNACION_H
-#include<exp.h>
-#include<expid.h>
+#include"expid.h"
 
 class Assignacion : public Instruccion
 {

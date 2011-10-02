@@ -1,11 +1,9 @@
 #ifndef BREAK_H
 #define BREAK_H
 
-#include<instruccion.h>
+#include"instruccion.h"
 class Break : public Instruccion
 {
-
-
 
 public:
     Break();

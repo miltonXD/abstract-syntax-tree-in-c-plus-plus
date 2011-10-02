@@ -1,8 +1,8 @@
 #ifndef CLASE_H
 #define CLASE_H
-#include<QList>
-#include<declaracionvar.h>
-#include<declaracionmetodo.h>
+//#include<QList>
+//#include"declaracionvar.h"
+#include"declaracionmetodo.h"
 class Clase : public Instruccion
 {
 public:QString Nombre;

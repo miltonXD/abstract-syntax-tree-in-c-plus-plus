@@ -1,9 +1,9 @@
 #ifndef EXP_H
 #define EXP_H
+#include"instruccion.h"
 
-#include<instruccion.h>
-class Exp : public Instruccion
-{
+class Exp: public Instruccion{
+
 public:QString Tipo;
 public:QString Valor;
 public:QString Direccion;

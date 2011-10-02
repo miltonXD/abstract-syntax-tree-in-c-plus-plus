@@ -1,6 +1,6 @@
 #ifndef EXPU_H
 #define EXPU_H
-#include<exp.h>
+#include"exp.h"
 class ExpU : public Exp
 {
 public: QString Operador;

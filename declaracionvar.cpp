@@ -6,12 +6,12 @@ DeclaracionVar::DeclaracionVar()
 
 bool DeclaracionVar::CargarTS()
 {
-    Simbolo *Sim=new Simbolo();
+    //Simbolo *Sim=new Simbolo();
     bool res=true;
 
     if(this->Atributo)
     {
-        if(this->SubDeclaracion!=null)
+        if(this->SubDeclaracion!=NULL)
         {
             this->SubDeclaracion->tabla=tabla;
 
@@ -23,13 +23,13 @@ bool DeclaracionVar::CargarTS()
 
         }
         if(res){
-          res=tabla.InsertarAtributo(this->Nombre,this->Tipo,this->Clase,this->Dimenciones,this->Acceso);
+          res=tabla->InsertarAtributo(this->Nombre,this->Tipo,this->Clase,this->Dimenciones,this->Acceso);
         }
 
     }
     else
     {
-        if(this->SubDeclaracion!=null)
+        if(this->SubDeclaracion!=NULL)
         {
             this->SubDeclaracion->tabla=tabla;
 
@@ -40,7 +40,9 @@ bool DeclaracionVar::CargarTS()
         }
         if(res)
         {
-          res=tabla.InsertarVariable(this->Nombre,this->Tipo,this->SimboloMetodo,this->Dimenciones);
+
+
+          res=tabla->InsertarVariable(this->Nombre,this->Tipo,this->SimboloMetodo,this->Dimenciones);
         }
 
     }

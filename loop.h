@@ -1,8 +1,7 @@
 #ifndef LOOP_H
 #define LOOP_H
-#include<exp.h>
-#include<assignacion.h>
-class Loop : public Instruccion
+#include"assignacion.h"
+class Loop: public Instruccion
 {
 
 public:Assignacion *InicioF;

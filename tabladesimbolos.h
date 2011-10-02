@@ -2,26 +2,27 @@
 #define TABLADESIMBOLOS_H
 
 #include<QHash>
-#include<QLinkedList>
-#include<QBool>
-#include<simbolo.h>
+#include"simbolo.h"
 
 class TablaDeSimbolos
 {
 public: QHash <QString,Simbolo*> Tabla;
 public: TablaDeSimbolos *tablaArriba;
 
-static const TablaDeSimbolos *tablaTemporales;
+public: static  TablaDeSimbolos *tablaTemporales;
 
+ static int Temporales;
+
+ static int Etiquetas;
 
 public:
     TablaDeSimbolos();
 
-public: bool InsertarVariable(QString nombre,QString tipo,Simbolo *padre,QList<int>Dim);
+public: bool InsertarVariable(QString nombre,QString tipo,Simbolo *padre,QList<long int>Dim);
 public: bool BuscarVariable(QString nombre,Simbolo *padre);
 public:Simbolo* GetVariable(QString nombre,Simbolo *padre);
 
-public:bool InsertarAtributo(QString nombre,QString tipo,Simbolo *padre,QList<int>Dim,QString Acceso);
+public:bool InsertarAtributo(QString nombre,QString tipo,Simbolo *padre,QList<long int>Dim,QString Acceso);
 public:bool BuscarAtributo(QString nombre,Simbolo *padre);
 public:Simbolo* GetAtributo(QString nombre,Simbolo *padre);
 
@@ -33,6 +34,8 @@ public:bool InsertarClase(QString nombre,QString clasePadre);
 public:bool BuscarClase(QString nombre);
 public:Simbolo* GetClase(QString nombre);
 
+public:static QString GenerarTemporal(QString tipo);
+public:static QString GenerarEtiqueta();
 
 };
 

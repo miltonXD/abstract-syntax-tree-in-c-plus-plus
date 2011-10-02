@@ -1,6 +1,6 @@
 #ifndef EXPBINARIA_H
 #define EXPBINARIA_H
-#include <exp.h>
+#include "exp.h"
 class ExpBinaria : public Exp
 {
 public:

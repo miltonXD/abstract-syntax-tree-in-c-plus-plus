@@ -11,7 +11,7 @@ bool Loop::CargarTS()
     int i;
     if(this->For)
     {
-        if(this->InicioF!=null)
+        if(this->InicioF!=NULL)
         {
             this->InicioF->tabla=tabla;
             this->InicioF->Clase=Clase;
@@ -19,7 +19,7 @@ bool Loop::CargarTS()
 
             res=this->InicioF->CargarTS();
         }
-        if(this->IncrementoF!=null)
+        if(this->IncrementoF!=NULL)
         {
             this->IncrementoF->tabla=tabla;
             this->IncrementoF->Clase=Clase;
@@ -40,11 +40,11 @@ bool Loop::CargarTS()
       //Revisar si la condicion es tipo bool o int
       if(res)
       {
-        if(this->SInstruccion!=null)
+        if(!this->SInstruccion.isEmpty())
           {
              for(i=0;i<this->SInstruccion.size()&&res;i++)
               {
-                 if(this->SInstruccion.takeAt(i)!=null)
+                 if(this->SInstruccion.takeAt(i)!=NULL)
                  {
                      this->SInstruccion.takeAt(i)->tabla=tabla;
                      this->SInstruccion.takeAt(i)->Clase=Clase;

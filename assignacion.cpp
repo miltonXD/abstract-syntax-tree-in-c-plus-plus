@@ -20,17 +20,18 @@ bool Assignacion::CargarTS()
         this->Expre->tabla=tabla;
         this->Expre->Clase=Clase;
         this->Expre->SimboloMetodo=SimboloMetodo;
+
         res=this->Expre->CargarTS();
     }
 
-    if(this->Var->Tipo.compare(this->Expre->Tipo))
+    /*if(this->Var->Tipo.compare(this->Expre->Tipo))
     {
         res=true;
     }
     else
     {
         //Error el Tipo de Var y Expre  no conincide
-        res=false;
-    }
+        //res=false;
+    }*/
     return res;
 }

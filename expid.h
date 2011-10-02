@@ -1,6 +1,6 @@
 #ifndef EXPID_H
 #define EXPID_H
-#include<exp.h>
+#include"exp.h"
 class ExpID:public Exp
 {
 public:QString Nombre;

@@ -13,11 +13,11 @@ bool Else::CargarTS()
     nTabla->tablaArriba=tabla;
     tabla=nTabla;
 
-    if(this->SInstruccion!=null)
+    if(!this->SInstruccion.isEmpty())
     {
         for(i=0;i<this->SInstruccion.size()&&res;i++)
         {
-            if(this->SInstruccion.takeAt(i)!=null)
+            if(this->SInstruccion.takeAt(i)!=NULL)
             {
                 this->SInstruccion.takeAt(i)->tabla=tabla;
                 this->SInstruccion.takeAt(i)->Clase=Clase;

@@ -1,8 +1,8 @@
 #ifndef IF_H
 #define IF_H
-#include<exp.h>
-#include<elseif.h>
-#include<else.h>
+
+#include"elseif.h"
+#include"else.h"
 class IF : public Instruccion
 {
 public: Exp *Condicion;
@@ -10,10 +10,11 @@ public: Exp *Condicion;
 public:bool Switch;                //Exculsivo para traduccir switch
 public:Exp *ExpSwitch;
 
-public:QList <ElseIF> elseif;
+public:QList <ElseIF*> elseif;
 
-public: Else else1;
+public: Else *else1;
 
+public:bool SW;
 
 public:
     IF();

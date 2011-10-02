@@ -17,10 +17,10 @@ bool Clase::CargarTS()
     int i;
     bool res=true;
     Simbolo *cl;
-    res=tabla.InsertarClase(nombre,nombrePadre);
+    res=tabla->InsertarClase(Nombre,ClasePadre);
     if(res)
     {
-        cl=tabla.GetClase(nombre);
+        cl=tabla->GetClase(Nombre);
     for(i=0;i<Atributos.size()&&res;i++)
     {
         Atributos.takeAt(i)->Clase=cl;

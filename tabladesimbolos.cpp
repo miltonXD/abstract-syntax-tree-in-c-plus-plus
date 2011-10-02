@@ -3,27 +3,52 @@
 TablaDeSimbolos::TablaDeSimbolos()
 {
 }
+
+//Funciones Globales para Generar Temporales y Etiquetas metodos estaticos
+QString  TablaDeSimbolos::GenerarEtiqueta()
+{
+    QString res="";
+    TablaDeSimbolos::Etiquetas++;
+    return res;
+}
+
+QString TablaDeSimbolos::GenerarTemporal(QString tipo)
+{
+    QString res="";
+    TablaDeSimbolos::Temporales++;
+    return res;
+}
+
+
 // InsertarMetodo, BuscarMetodo GetMetodo
 bool TablaDeSimbolos::InsertarMeotodo(QString nombre,QString tipo,Simbolo *padre,QList <QString> parametros)
 {
     bool res=true;
     QString nombre2="";
     QString nombre1=nombre;
+    QString nombre3="";
     Simbolo *sn1=new Simbolo();
-    Simbolo *sn2=null;
+    Simbolo *sn2=NULL;
     int i;
-    if(parametros!=null)
+    if(parametros.isEmpty())
     {
     for(i=0;i<parametros.size();i++)
     {
         nombre2=nombre2+"_"+parametros.takeAt(i);
     }
     }
-    nombre1="M_"+nombre1+"_"+nombre2;
 
+    if(padre!=NULL)
+    {
+        nombre3=padre->Nombre+"_";
+    }
+
+    nombre1=nombre3+"M_"+nombre1+"_"+nombre2;
+
+    QList<Simbolo*> lS;
     sn1->Nombre=nombre1;
     sn1->Metodo=true;
-    sn1->Parametros=new QList(Simbolo*);
+    sn1->Parametros=lS;
     //sn1->Parametros=parametros;   por lo del Huevo o la Gallina es primero insertar el simbolo del metodo y luego los parametros que ta tiene que tener simbolo de metodo
     sn1->Tipo=tipo;
     sn1->Size=0;
@@ -48,10 +73,16 @@ return res;
 bool TablaDeSimbolos::BuscarMetodo(QString nombre,QString tiposParametros,Simbolo *padre)
 {
     bool res=true;
-    QString nombre1="M_"+nombre+"_"+tiposParametros;
+    QString nombre3="";
+    if(padre!=NULL)
+    {
+        nombre3=padre->Nombre+"_";
+    }
+
+    QString nombre1=nombre3+"M_"+nombre+"_"+tiposParametros;
     Simbolo *sn1;
     sn1=Tabla.take(nombre1);
-    if(sn1!=null)
+    if(sn1!=NULL)
     {
         if(sn1->Nombre.compare(nombre)==0&&padre->Nombre.compare(sn1->simboloPadre->Nombre)&&sn1->Metodo)
         {
@@ -60,11 +91,11 @@ bool TablaDeSimbolos::BuscarMetodo(QString nombre,QString tiposParametros,Simbol
         else
         {
             res=false;
-            sn1=null;
+            sn1=NULL;
         }
 
     }
-    if(!res&&tablaArriba!=null)
+    if(!res&&tablaArriba!=NULL)
     {
         res=tablaArriba->BuscarMetodo(nombre,tiposParametros,padre);
     }
@@ -74,24 +105,31 @@ bool TablaDeSimbolos::BuscarMetodo(QString nombre,QString tiposParametros,Simbol
 Simbolo* TablaDeSimbolos::GetMetodo(QString nombre,QString tiposParametros,Simbolo *padre)
 {
     bool res=true;
-    QString nombre1="M_"+nombre+tiposParametros;
-    Simbolo *sn1=null;
+
+    QString nombre3="";
+    if(padre!=NULL)
+    {
+        nombre3=padre->Nombre+"_";
+    }
+    QString nombre1=nombre3+"M_"+nombre+tiposParametros;
+
+    Simbolo *sn1=NULL;
     sn1=Tabla.take(nombre1);
 
-    if(sn1!=null)
+    if(sn1!=NULL)
     {
         if(sn1->Nombre.compare(nombre)==0&&padre->Nombre.compare(sn1->simboloPadre->Nombre)==0&&sn1->Metodo)
         {
             res=true;}
         else
         {
-            sn1=null;
+            sn1=NULL;
             res=false;
         }
     }
-    if(!res&&tablaArriba!=null)
+    if(!res&&tablaArriba!=NULL)
     {
-        sn1=tablaArriba->BuscarMetodo(nombre,tiposParametros,padre);
+        sn1=tablaArriba->GetMetodo(nombre,tiposParametros,padre);
     }
     return sn1;
 }
@@ -99,13 +137,18 @@ Simbolo* TablaDeSimbolos::GetMetodo(QString nombre,QString tiposParametros,Simbo
 
 //InsertarAtributo BuscarAtributo GetAtributo
 
-bool TablaDeSimbolos::InsertarAtributo(QString nombre,QString tipo,Simbolo *padre,QList<int>Dim,QString Acceso)
+bool TablaDeSimbolos::InsertarAtributo(QString nombre,QString tipo,Simbolo *padre,QList<long int>Dim,QString Acceso)
 {
     bool res=true;
-    QString nombre1=nombre;
+    QString nombre3="";
+    int i;
+    if(padre!=NULL)
+    {
+        nombre3=padre->Nombre+"_";
+    }
+    QString nombre1=nombre3+"A_"+nombre;
     Simbolo *sn1=new Simbolo();
-    Simbolo *sn2=null;
-    Simbolo *sn2=null;
+    Simbolo *sn2=NULL;
     int SizeM=1;
     sn1->Nombre=nombre;
     sn1->Tipo=tipo;
@@ -115,7 +158,7 @@ bool TablaDeSimbolos::InsertarAtributo(QString nombre,QString tipo,Simbolo *padr
     if(Acceso.compare("public")==0){sn1->Publico=true;}
     if(Acceso.compare("protected")==0){sn1->Protegido=true;}
     if(Acceso.compare("private")==0){sn1->Privado=true;}
-    if(Dim!=null)
+    if(!Dim.isEmpty())
     {
         for(i=0;i<Dim.size();i++)
         {
@@ -167,11 +210,19 @@ bool TablaDeSimbolos::InsertarAtributo(QString nombre,QString tipo,Simbolo *padr
 bool TablaDeSimbolos::BuscarAtributo(QString nombre,Simbolo *padre)
 {
     bool res=true;
-    QString nombre1=nombre;
-    Simbolo *sn1=null;
-    sn1=Tabla.take(noombre1);
-    if(sn1!=null)
+    QString nombre3="";
+    if(padre!=NULL)
     {
+        nombre3=padre->Nombre+"";
+    }
+
+    QString nombre1=nombre3+nombre;
+    Simbolo *sn1=NULL;
+    sn1=Tabla.take(nombre1);
+    if(sn1!=NULL)
+    {
+        if(padre!=NULL)
+        {
         if(sn1->Atributo&&padre->Nombre.compare(sn1->simboloPadre->Nombre)==0)
         {
             res=true;
@@ -181,8 +232,9 @@ bool TablaDeSimbolos::BuscarAtributo(QString nombre,Simbolo *padre)
         {
             res=false;
         }
+        }
     }
-    if(!res&&tablaArriba!=null)
+    if(!res&&tablaArriba!=NULL)
     {
         res=tablaArriba->BuscarAtributo(nombre,padre);
     }   //Falta Buscar en la Clase Padre si es que existe
@@ -192,12 +244,19 @@ bool TablaDeSimbolos::BuscarAtributo(QString nombre,Simbolo *padre)
 
 Simbolo* TablaDeSimbolos::GetAtributo(QString nombre,Simbolo *padre)
 {
-    Simbolo *sn1=null;
+    Simbolo *sn1=NULL;
     bool res=true;
-    QString nombre1=nombre;
-    sn1=Tabla.take(nombre1);
-    if(sn1!=null)
+    QString nombre3="";
+    if(padre!=NULL)
     {
+        nombre3=padre->Nombre+"_";
+    }
+    QString nombre1=nombre3+nombre;
+    sn1=Tabla.take(nombre1);
+    if(sn1!=NULL)
+    {
+        if(padre!=NULL)
+        {
         if(sn1->Atributo&&padre->Nombre.compare(sn1->simboloPadre->Nombre)==0)
         {
             res=true;
@@ -205,10 +264,11 @@ Simbolo* TablaDeSimbolos::GetAtributo(QString nombre,Simbolo *padre)
         else
         {
             res=false;
-            ns1=null;
+            sn1=NULL;
+        }
         }
     }
-    if(sn1==null&&tablaArriba!=null)
+    if(sn1==NULL&&tablaArriba!=NULL)
     {
         sn1=tablaArriba->GetAtributo(nombre,padre);
     }
@@ -218,12 +278,12 @@ Simbolo* TablaDeSimbolos::GetAtributo(QString nombre,Simbolo *padre)
 }
 
 // InsertaVariable Inserta una Simbolo tipo variable; BuscarVariable  Busca un simbolo tipoo Variable; GetVariable devuelve un simbolo tipo Variable
-bool TablaDeSimbolos::InsertarVariable(QString nombre,QString tipo,Simbolo *padre,QList<int>Dim)
+bool TablaDeSimbolos::InsertarVariable(QString nombre,QString tipo,Simbolo *padre,QList<long int>Dim)
 {
     bool res=true;
     Simbolo *sn1=new Simbolo();
-    Simbolo *sv=null;
-    Simbolo *sa=null;
+    Simbolo *sv=NULL;
+    Simbolo *sa=NULL;
     QString nombre1=nombre;
     int SizeM=1;
     int i;
@@ -234,7 +294,7 @@ bool TablaDeSimbolos::InsertarVariable(QString nombre,QString tipo,Simbolo *padr
     sn1->Dimenciones=Dim;
     if(!BuscarVariable(nombre1,padre))
     {
-        if(Dim!=null)
+        if(!Dim.isEmpty())
         {
             for(i=0;i<Dim.size();i++)
             {
@@ -270,13 +330,13 @@ bool TablaDeSimbolos::InsertarVariable(QString nombre,QString tipo,Simbolo *padr
         sn1->Size=sn1->Size*SizeM;
 
         sn1->PosRel=padre->PosRel;
-        Tabla.insert(nombre1,ns1);
+        Tabla.insert(nombre1,sn1);
         }
             //Sumarle el tamaño al size
     }
     else
     {
-        sv=GetVariable(nombre,*padre);
+        sv=GetVariable(nombre,padre);
         //Error la Variable nombre ya esta declarada como sv->Tipo
     }
     return res;
@@ -286,27 +346,27 @@ bool TablaDeSimbolos::BuscarVariable(QString nombre,Simbolo *padre)
 {
     bool res=true;
     QString nombre1=nombre;
-    Simbolo *s1=null;
+    Simbolo *s1=NULL;
     s1=Tabla.take(nombre1);
-    if(s1!=null){
+    if(s1!=NULL&&padre!=NULL){
     if(s1->Variable&&padre->Nombre.compare(s1->simboloPadre->Nombre)==0){res=true;}
     else{res=false;}
     }
 
-    if(!res&&tablaArriba!=null)
+    if(!res&&tablaArriba!=NULL)
     {
-        res=tablaArriba->BuscarVariable(nombre1);
+        res=tablaArriba->BuscarVariable(nombre1,padre);
     }
     return res;
 }
 
 Simbolo* TablaDeSimbolos::GetVariable(QString nombre,Simbolo *padre)
 {
-    Simbolo *s1=null;
+    Simbolo *s1=NULL;
     bool res=true;
     QString nombre1=nombre;
     s1=Tabla.take(nombre1);
-    if(s1!=null)
+    if(s1!=NULL&&padre!=NULL)
     {
     if(s1->Variable&&padre->Nombre.compare(s1->simboloPadre->Nombre)==0)
     {
@@ -314,13 +374,13 @@ Simbolo* TablaDeSimbolos::GetVariable(QString nombre,Simbolo *padre)
     }
     else
     {
-        s1=null;
+        s1=NULL;
         res=false;
     }
     }
-    if(res=false&&tablaArriba!=null)
+    if(res==false&&tablaArriba!=NULL)
     {
-        s1=tablaArriba->BuscarVariable(nombre,padre);
+        s1=tablaArriba->GetVariable(nombre,padre);
     }
 
     return s1;
@@ -335,16 +395,16 @@ bool TablaDeSimbolos::BuscarClase(QString nombre)
 {
     bool res=true;
     QString nombre1="C_"+nombre;
-    Simbolo s1=null;
+    Simbolo *s1=NULL;
     s1=Tabla.take(nombre);
-    if(s1!=null)
+    if(s1!=NULL)
     {
-    if(s1.Clase)
+    if(s1->Clase)
     {res=true;}
     else{res=false;}
     }
     //res=Tabla.contains(nombre1);
-    if(!res&&tablaArriba!=null)
+    if(!res&&tablaArriba!=NULL)
     {
         res=tablaArriba->BuscarClase(nombre);
     }
@@ -353,17 +413,17 @@ bool TablaDeSimbolos::BuscarClase(QString nombre)
 
 Simbolo* TablaDeSimbolos::GetClase(QString nombre)
 {
-    Simbolo *ns=null;
+    Simbolo *ns=NULL;
     QString nombre1="C_"+nombre;
 
     ns=this->Tabla.take(nombre1);
-    if(ns!=null)
+    if(ns!=NULL)
     {
     if(!ns->Clase)
-    {ns=null;}
+    {ns=NULL;}
     }
 
-    if(ns==null&&this->tablaArriba!=null)
+    if(ns==NULL&&this->tablaArriba!=NULL)
     {
         ns=tablaArriba->GetClase(nombre);
     }
@@ -376,7 +436,7 @@ Simbolo* TablaDeSimbolos::GetClase(QString nombre)
 bool TablaDeSimbolos::InsertarClase(QString nombre,QString clasePadre)
 {
     bool res=true;
-    Simbolo *cp=null;
+    Simbolo *cp=NULL;
     Simbolo *In=new Simbolo();
     QString nClave;
     if(BuscarClase(clasePadre))

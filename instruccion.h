@@ -1,13 +1,13 @@
 #ifndef INSTRUCCION_H
 #define INSTRUCCION_H
-#include<tabladesimbolos.h>
-#include<QList>
-#include<QBool>
-#include<simbolo.h>
+
+#include"tabladesimbolos.h"
+//#include<QList>
+
 
 class Instruccion
 {
-public:TablaDeSimbolos tabla;
+public:TablaDeSimbolos *tabla;
 
 public:QString T3Direcciones;
 
@@ -29,6 +29,10 @@ public:bool Break;
 public:long int Linea;
 
 public:long int Columna;
+
+
+public: bool BREAK;
+public: bool RETURN;
 
 public:
     Instruccion();

@@ -3,7 +3,7 @@
 #include<QList>
 class Errores
 {
-    static const QList<QString> errores;
+    static  QList<QString> errores;
 public:
     Errores();
 };
